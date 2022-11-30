@@ -47,6 +47,11 @@ func main() {
 	for i := 0; i < len(videos); i++ {
 		fmt.Println(videos[i])
 		resp, _ := http.Get(string(videos[i]))
+
+		if strings.ContainsAny(titles[i], ":") {
+			titles[i] = strings.ReplaceAll(titles[i], ":", "")
+		}
+
 		out, _ := os.Create(titles[i] + ".mp4")
 
 		io.Copy(out, resp.Body)
